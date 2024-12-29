@@ -130,4 +130,44 @@ private int Loop(String[] n, int i) { //we get lines and start_Index
         }
         return Comparison(expr);
     }
+private boolean Comparison(String expr) {
+        String[] Parts = expr.split("==|!=|<|>|<=|>="); //this code is meant to evaluate comparisons
+        if (Parts.length != 2) {
+            throw new IllegalArgumentException("ERROR 404: " + expr);
+        }
+        Parts[0] = Parts[0].trim();
+        Parts[1] = Parts[1].trim();
+        String operator = extractOperator(expr); //we use helper function
+        
+        double leftValue = Expression(Parts[0]);
+        double rightValue = Expression(Parts[1]);
+        
+        switch (operator) {
+            case "==": return leftValue == rightValue;
+            case "!=": return leftValue != rightValue;
+            case ">": return leftValue > rightValue;
+            case "<": return leftValue < rightValue;
+            case "<=": return leftValue <= rightValue;
+            case ">=": return leftValue >= rightValue;
+            default:
+                throw new IllegalArgumentException("ERROR: " + operator);
+        }
+    }
+    private String extractOperator(String expr) {
+        if (expr.contains("=="))
+            return "==";
+        if (expr.contains("!="))
+            return "!=";
+        if (expr.contains("<="))
+            return "<=";
+        if (expr.contains(">="))
+            return ">=";
+        if (expr.contains("<"))
+            return "<";
+        if (expr.contains(">"))
+            return ">";
+        
+        return "";
+    }
+
 
