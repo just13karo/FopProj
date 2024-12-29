@@ -1,3 +1,9 @@
 # FopProj
-FopProject, group: 70-1
-nice
+FopProject, group🇧🇸
+Davit KAroiani
+Mariami Tskhomelidze
+Iterpreter For Python
+
+
+
+
