@@ -226,5 +226,83 @@ private void Assign(String line) {
             num.put(variableName, value);
         }
     }
+private void Print(String line) {
+        String varName = extractVariableName(line);
+        if (isStringLiteral(varName)) { //is ckecking if it is a string literal
+            printStringLiteral(varName);
+            return;
+        }
+        if (string.containsKey(varName)) { //checks if it is a string variable
+            printStringVariable(varName);
+            return;
+        }
+        if (isBooleanExpression(varName)) { //checks if it is boolean expressions or variables
+            printBooleanExpression(varName);
+            return;
+        }
+        if (isConcatenatedStringExpression(varName)) {  //checks if it is concatenated string expressions
+            printConcatenatedString(varName);
+            return;
+        }
+        printNumericExpression(varName); //for numeric expression
+    }
 
+    //those are helper methods
+    private String extractVariableName(String line) {
+        return line.substring(line.indexOf('(') + 1, line.indexOf(')')).trim();
+    }
+    private boolean isStringLiteral(String varName) { //helper of check if a string is a string literal
+        return (varName.startsWith("'") && varName.endsWith("'")) ||
+                (varName.startsWith("\"") && varName.endsWith("\""));
+    }
+    private void printStringLiteral(String varName) { //helper to print string literals
+        System.out.println(varName.substring(1, varName.length() - 1));
+    }
+    private boolean isStringVariable(String varName) {    //helper to check if it is a string
+        return string.containsKey(varName);
+    }
+
+    private void printStringVariable(String varName) {     //helper to print strings
+
+        System.out.println(string.get(varName));
+    }
+
+    // helpers to check if the expression contains boolean logic, if it does then it evaluates and prints result
+    private boolean isBooleanExpression(String varName) {
+        return bool.containsKey(varName) || varName.contains("&") || varName.contains("|") ||
+                varName.contains("<") || varName.contains(">") || varName.contains("==") || varName.contains("!=");
+    }
+    private void printBooleanExpression(String varName) {
+        System.out.println(Bool(varName));
+    }
+
+    //helpers that check if it is a concatenated string, if it is then it evaluates and prints it.
+    private boolean isConcatenatedStringExpression(String varName) {
+        return (varName.contains("+") || varName.contains(",")) && StringVar(varName);
+    }
+    private void printConcatenatedString(String varName) {
+        System.out.println(evalString(varName));
+    }
+
+    private void printNumericExpression(String varName) {    //helper, so we can print numeric expressions
+
+        String toPrint = String.valueOf(Expression(varName));
+        System.out.println(toPrint);
+    }
+    private boolean StringVar(String expression) {
+        return Arrays.stream(expression.split("[+\\-,]"))
+                .map(String::trim)
+                .anyMatch(string::containsKey);
+    }
+    private String evalString(String expression) {   //evaluates concatenated strings
+        String[] operands = expression.split("[+\\-,]");
+        StringBuilder result = new StringBuilder();
+        for (String operand : operands) {
+            if (string.containsKey(operand.trim())) {
+                result.append(string.get(operand.trim()));
+            }
+        }
+        return result.toString(); 
+    }
+}
 
