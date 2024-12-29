@@ -170,4 +170,35 @@ private boolean Comparison(String expr) {
         return "";
     }
 
+   private int If(String[] lines, int currentIndex) {
+        String conditionLine = lines[currentIndex].trim();
+        String condition = conditionLine.substring(2).trim();
+        condition = condition.substring(0, condition.indexOf(":")).trim(); //we remove "if" and we do trip operation
+
+        boolean conditionResult = Bool(condition);
+        int nextIndex = currentIndex + 1;
+        
+        while (nextIndex < lines.length && lines[nextIndex].startsWith("    ")) { //search from "if" till the "else"
+            if (lines[nextIndex].contains("else")) break; 
+            nextIndex++;
+        }
+        if (conditionResult) {                                      
+            eval(String.join("\n", Arrays.copyOfRange(lines, currentIndex + 1, nextIndex)));
+        }
+        if (nextIndex < lines.length && lines[nextIndex].trim().startsWith("else")) { //do same as we did for "if", but in this case we are doing for "else"
+            int elseStartIndex = nextIndex + 1;
+            while (elseStartIndex < lines.length && lines[elseStartIndex].startsWith("    ")) {
+                elseStartIndex++;
+            }
+            
+            if (!conditionResult) {         // while, If the "if" condition was false, evaluate the "else" block
+                eval(String.join("\n", Arrays.copyOfRange(lines, nextIndex + 1, elseStartIndex)));
+            }
+            nextIndex = elseStartIndex;
+            // Update the nextIndex to the end of the "else" block
+        }
+        
+        return nextIndex - 1; // Return the updated index after processing the "if" and "else" blocks
+    }
+
 
