@@ -92,4 +92,42 @@ private static String determineCase(String line) {
             throw new IllegalArgumentException("ERROR 404 " + expression);
         }
     }
+private int Loop(String[] n, int i) { //we get lines and start_Index
+        String Line = n[i].substring(5).trim();
+        String cond = Line.substring(0, Line.indexOf(":")).trim();
+        int loopStart = i + 1; //start_Index of the loop
+        int loopEnd = loopStart; //end_Index of the loop
+        while (loopEnd < n.length && (n[loopEnd].startsWith("    ") || n[loopEnd].isEmpty())) {
+            loopEnd++;
+        }
+        while (Bool(cond)) {
+            String Body = String.join("\n", Arrays.copyOfRange(n, loopStart, loopEnd));
+            eval(Body);
+        }
+        return loopEnd - 1;
+    }
+    private boolean Bool(String expr) {
+        expr = expr.trim();  // deletes whitespace
+        boolean result = true;
+        if (bool.containsKey(expr)) { //checks if its already boolean
+            return bool.get(expr);
+        }
+        if (expr.contains("&") || expr.contains("|")) { //handles operations
+            String[] parts = expr.split("[&|]");
+            result = Bool(parts[0].trim());  // result
+            for (int i = 1; i < parts.length; i++) {
+                parts[i] = parts[i].trim();
+                String operator = String.valueOf(expr.charAt(expr.indexOf(parts[i - 1]) + parts[i - 1].length())).trim();
+                boolean isNegated = parts[i].charAt(0) == '!'; //checks if it contains '!' before operator
+                boolean currentValue = isNegated ? !Bool(parts[i].substring(1).trim()) : Bool(parts[i]);
+                result = switch (operator) { //applies operators
+                    case "&" -> result && currentValue;  // AND operator
+                    case "|" -> result || currentValue;  // OR operator
+                    default -> result;                   // previous result
+                };
+            }
+            return result;
+        }
+        return Comparison(expr);
+    }
 
