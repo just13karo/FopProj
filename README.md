@@ -1,8 +1,9 @@
 # FopProj
 FopProject, group🇧🇸
-Davit KAroiani
+Davit Karoiani
 Mariami Tskhomelidze
 Iterpreter For Python
+
 
 
 
