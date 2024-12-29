@@ -45,3 +45,51 @@ private static String determineCase(String line) {
     }
 
 
+ private double Expression(String expression) {
+        if (expression.contains("==") || expression.contains("!=") ||
+                expression.contains("<") || expression.contains(">") ||
+                expression.contains("<=") || expression.contains(">=")) { //checks for comparison
+            return evaluateComparison(expression) ? 1 : 0;  // return boolean
+        }
+        String[] operations = expression.split("[+\\-*/%]"); //operations
+        double result = checker(operations[0]);
+        for (int i = 1; i < operations.length; i++) {
+            char operator = expression.charAt(expression.indexOf(operations[i - 1]) + operations[i - 1].length());
+            double operation2 = checker(operations[i]);
+            switch (operator) {
+                case '+': result += operation2; break;
+                case '-': result -= operation2; break;
+                case '*': result *= operation2; break;
+                case '/':
+                    if (operation2 == 0) throw new ArithmeticException("Did u learn math?");
+                    result /= operation2;
+                    break;
+                case '%': result %= operation2; break;
+                default:
+                    throw new IllegalArgumentException("ERROR 404: " + operator);
+            }
+        }
+        return result; // returns value
+    }
+    private double checker(String expression) {
+        expression = expression.trim(); //deletes white spaces(trims)
+        if (expression.contains("=")) {
+            String[] parts = expression.split("=");
+            if (parts.length != 2) {
+                throw new IllegalArgumentException("ERROR 404: " + expression);
+            }
+            String variable = parts[0].trim(); //we get variable name because its on the left
+            double value = Expression(parts[1].trim());
+            num.put(variable, value); //puts variables' value in num map
+            return value;
+        }
+        if (num.containsKey(expression)) { //check
+            return num.get(expression);
+        }
+        try { //mate
+            return Double.parseDouble(expression);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("ERROR 404 " + expression);
+        }
+    }
+
