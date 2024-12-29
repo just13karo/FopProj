@@ -1,1 +1,47 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class FopProject {
+    private final Map<String, Double> num = new HashMap<>(); // to store numbers
+    private final Map<String, String> string = new HashMap<>(); // to store strings
+    private final Map<String, Boolean> bool = new HashMap<>(); // to store booleans
+
+    public void eval(String program) {
+        String[] n = program.split("\n"); // Split the code
+        for (int i = 0; i < n.length; i++) { // Trim every line
+            String line = n[i].trim();
+            if (line.isEmpty()) continue;
+            switch (determineCase(line)) {
+                case "assign":
+                    Assign(line);
+                    break;
+                case "print":
+                    Print(line);
+                    break;
+                case "if":
+                    i = If(n, i);
+                    break;
+                case "loop":
+                    i = Loop(n, i);
+                    break;
+                default:
+                    System.out.println("Unknown command: " + line);
+                    break;
+            }
+        }
+    }
+private static String determineCase(String line) {
+        if (line.contains("=") && (!line.contains("!") && !line.contains("==") && !line.contains("<") && !line.contains(">"))) {
+            return "assign"; // To do Assign
+        } else if (line.startsWith("print")) {
+            return "print"; // To do Print
+        } else if (line.contains("if")) {
+            return "if"; // To do If
+        } else if (line.contains("while")) {
+            return "loop"; // To do Loop
+        }
+        return "unknown";
+    }
+
 
