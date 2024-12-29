@@ -201,4 +201,30 @@ private boolean Comparison(String expr) {
         return nextIndex - 1; // Return the updated index after processing the "if" and "else" blocks
     }
 
+private void Assign(String line) {
+        String[] parts = line.split("=");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("ERROR 404: " + line);
+        }
+        String variableName = parts[0].trim();
+        String valueExpression = parts[1].trim();
+        
+        if (valueExpression.matches("^-?\\d+(\\.\\d+)?$")) { //if it matches, we store in the number map
+            double value = Double.parseDouble(valueExpression);
+            num.put(variableName, value);
+        }
+        else if (valueExpression.startsWith("\"") && valueExpression.endsWith("\"")) { //if it matches, we  store in the map of strings 
+            String value = valueExpression.substring(1, valueExpression.length() - 1);
+            string.put(variableName, value);
+        }
+        else if (valueExpression.equals("true") || valueExpression.equals("false")) { //if it matches, we store in the map of booleans
+            boolean value = Boolean.parseBoolean(valueExpression);
+            bool.put(variableName, value); 
+        }
+        else {
+            double value = Expression(valueExpression);  //evaluate and store in the number map
+            num.put(variableName, value);
+        }
+    }
+
 
