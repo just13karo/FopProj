@@ -85,3 +85,27 @@
                 """;
         FopProject d= new FopProject();
         d.eval(reverseNumber);
+//Largest number of 'n'
+        String largestNumber = """ 
+number = 9387
+helper = number
+maxNum = 0
+storage = 0
+count = 1
+
+while number != 0:
+    storage = number % 10
+    number = number / 10
+    count = count + 1
+number = helper
+while count != 0:
+    count = count - 1
+    storage = number % 10
+    if storage > maxNum:
+        maxNum = storage
+    number = number / 10
+print(maxNum)
+""";
+        FopProject test = new FopProject();
+        test.eval(largestNumber);
+//
