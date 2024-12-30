@@ -283,11 +283,13 @@ private void Print(String line) {
     private void printConcatenatedString(String varName) {
         System.out.println(evalString(varName));
     }
-
-    private void printNumericExpression(String varName) {    //helper, so we can print numeric expressions
-
-        String toPrint = String.valueOf(Expression(varName));
-        System.out.println(toPrint);
+    private void printNumericExpression(String varName) { //prints double when needed
+        double value = Expression(varName);
+        if (value == (long) value) {
+            System.out.println((long) value); // Print as long 
+        } else {
+            System.out.println(value); // Print as double
+        }
     }
     private boolean StringVar(String expression) {
         return Arrays.stream(expression.split("[+\\-,]"))
