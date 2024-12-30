@@ -45,33 +45,7 @@ private static String determineCase(String line) {
     }
 
 
- private double Expression(String expression) {
-        if (expression.contains("==") || expression.contains("!=") ||
-                expression.contains("<") || expression.contains(">") ||
-                expression.contains("<=") || expression.contains(">=")) { //checks for comparison
-            return evaluateComparison(expression) ? 1 : 0;  // return boolean
-        }
-        String[] operations = expression.split("[+\\-*/%]"); //operations
-        double result = checker(operations[0]);
-        for (int i = 1; i < operations.length; i++) {
-            char operator = expression.charAt(expression.indexOf(operations[i - 1]) + operations[i - 1].length());
-            double operation2 = checker(operations[i]);
-            switch (operator) {
-                case '+': result += operation2; break;
-                case '-': result -= operation2; break;
-                case '*': result *= operation2; break;
-                case '/':
-                    if (operation2 == 0) throw new ArithmeticException("Did u learn math?");
-                    result /= operation2;
-                    break;
-                case '%': result %= operation2; break;
-                default:
-                    throw new IllegalArgumentException("ERROR 404: " + operator);
-            }
-        }
-        return result; // returns value
-    }
-    private double checker(String expression) {
+ private double checker(String expression) {
         expression = expression.trim(); //deletes white spaces(trims)
         if (expression.contains("=")) {
             String[] parts = expression.split("=");
@@ -91,6 +65,37 @@ private static String determineCase(String line) {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("ERROR 404 " + expression);
         }
+    }
+
+    private double Expression(String expression) {
+        if (expression.contains("==") || expression.contains("!=") ||
+            expression.contains("<") || expression.contains(">") ||
+            expression.contains("<=") || expression.contains(">=")) { //checks for comparison
+            return Comparison(expression) ? 1 : 0;  // return boolean
+        }
+        String[] operations = expression.split("[+\\-*/%]"); //operations
+        double result = checker(operations[0]);
+        for (int i = 1; i < operations.length; i++) {
+            char operator = expression.charAt(expression.indexOf(operations[i - 1]) + operations[i - 1].length());
+            double operation2 = checker(operations[i]);
+            switch (operator) {
+                case '+': result += operation2; break;
+                case '-': result -= operation2; break;
+                case '*': result *= operation2; break;
+                case '/':
+                    if (operation2 == 0) throw new ArithmeticException("Did u learn math?");
+                    if ((result % 1 == 0) && (operation2 % 1 == 0)) { //Checks if both are integer to return integer
+                        result = (int) result / (int) operation2;
+                    } else {
+                        result /= operation2;
+                    }
+                    break;
+                case '%': result %= operation2; break;
+                default:
+                    throw new IllegalArgumentException("ERROR 404: " + operator);
+            }
+        }
+        return result; // returns value
     }
 private int Loop(String[] n, int i) { //we get lines and start_Index
         String Line = n[i].substring(5).trim();
