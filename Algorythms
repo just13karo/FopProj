@@ -1,0 +1,87 @@
+//Sum of Numbers before 'n'
+        String sum = """
+        n = 10
+        i = 1
+        while n>=1:
+                  i = i +n
+                  n = n - 1
+        print(i)
+        """;
+        FopProject a = new FopProject();
+        a.eval(sum);
+//Factorial of a number
+        String factorial = """
+        n = 7
+        i = 1
+        while n>=1:
+                  i = i * n
+                  n = n - 1
+        print(i)
+        """;
+        FopProject b = new FopProject();
+        b.eval(factorial);
+//gcd of 2 numbers
+        String gcd = """
+        a = 5
+        b = 10        
+        while b != 0:
+            if a > b:
+                a = a - b
+            else:
+                b = b - a
+        print(a)
+        """;
+        FopProject c = new FopProject();
+        c.eval(gcd);
+//Multiplication table for a number
+        String multiplicationTable = """
+        n = 5
+        i = 1
+        while i <= 10:
+            print(n * i)
+            i = i + 1
+        """;
+        FopProject g= new FopProject();
+        g.eval(multiplicationTable);
+//Fibbonachi number searcher
+        String nthFibonacciNumber = """
+        n = 10
+        a = 0
+        b = 1
+        i = 2
+        while i < n:
+            temp = a
+            a = b
+            b = temp + b
+            i = i + 1
+        print(b)
+        """;
+        FopProject f= new FopProject();
+        f.eval(nthFibonacciNumber);
+//Sum of digits
+        String sumOfDigits = """
+                n = 2222
+                a = 0
+                sum = 0
+                while n > 0:
+                    a = n % 10
+                    sum = sum + a
+                    n = n - a
+                    n = n / 10
+                print(sum)
+                """;
+        FopProject h = new FopProject();
+        h.eval(sumOfDigits);
+//Reverse number of 'n'
+        String reverseNumber = """
+                n = 1234
+                result = 0
+                while n != 0:
+                      helper = n % 10
+                      n = n - helper
+                      n = n / 10
+                      result = result * 10 + helper
+                print(result)
+                """;
+        FopProject d= new FopProject();
+        d.eval(reverseNumber);
