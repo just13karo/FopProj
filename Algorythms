@@ -87,7 +87,7 @@
         d.eval(reverseNumber);
 //Largest number of 'n'
         String largestNumber = """ 
-number = 9387
+number = 474597
 helper = number
 maxNum = 0
 storage = 0
