@@ -109,7 +109,6 @@ print(maxNum)
         FopProject test = new FopProject();
         test.eval(largestNumber);
 //
-
         FopProject k = new Interpretor();
         String tab = """
              number = 5
@@ -120,27 +119,22 @@ print(maxNum)
              """;
         k.eval(tab);
 
-        FopProject l = new Interpretor();
-        String fib = """
-                n = 10
-                a = 0
-                b = 1
-                count = 3
-                
-                if n==1:
-                print(0)
-                
-                if n==2:
-                print(1)
-                
-                while count <= n:
-                    next_fib = a + b
-                    a = b
-                    b = next_fib
-                    count = count + 1
-                
-                print(b)
-                """;
-        l.eval(fib);
+//Prime number checker
+        String primeCheckCode = """
+        n = 13
+        isPrime = true
+        if n <= 1:
+            isPrime = false
+        i = 1
+        while i * i <= n:
+            i = i + 1
+            if n % i == 0:
+                isPrime = false
+            if n==2:
+                isPrime=true
+        print(isPrime)
+        """;
+        FopProject fop = new FopProject();
+           fop.eval(primeCheckCode);
 
 
