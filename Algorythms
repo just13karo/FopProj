@@ -9,6 +9,7 @@
         """;
         FopProject a = new FopProject();
         a.eval(sum);
+
 //Factorial of a number
         String factorial = """
         n = 7
@@ -20,6 +21,7 @@
         """;
         FopProject b = new FopProject();
         b.eval(factorial);
+
 //gcd of 2 numbers
         String gcd = """
         a = 5
@@ -33,6 +35,7 @@
         """;
         FopProject c = new FopProject();
         c.eval(gcd);
+
 //Multiplication table for a number
         String multiplicationTable = """
         n = 5
@@ -43,6 +46,7 @@
         """;
         FopProject g= new FopProject();
         g.eval(multiplicationTable);
+
 //Fibbonachi number searcher
         String nthFibonacciNumber = """
         n = 10
@@ -58,6 +62,7 @@
         """;
         FopProject f= new FopProject();
         f.eval(nthFibonacciNumber);
+
 //Sum of digits
         String sumOfDigits = """
                 n = 2222
@@ -72,6 +77,7 @@
                 """;
         FopProject h = new FopProject();
         h.eval(sumOfDigits);
+
 //Reverse number of 'n'
         String reverseNumber = """
                 n = 1234
@@ -85,39 +91,51 @@
                 """;
         FopProject d= new FopProject();
         d.eval(reverseNumber);
+
 //Largest number of 'n'
         String largestNumber = """ 
-number = 474597
-helper = number
-maxNum = 0
-storage = 0
-count = 1
-
-while number != 0:
-    storage = number % 10
-    number = number / 10
-    count = count + 1
-number = helper
-while count != 0:
-    count = count - 1
-    storage = number % 10
-    if storage > maxNum:
-        maxNum = storage
-    number = number / 10
-print(maxNum)
-""";
+        number = 474597
+        helper = number
+        maxNum = 0
+        storage = 0
+        count = 1
+        
+        while number != 0:
+            storage = number % 10
+            number = number / 10
+            count = count + 1
+        number = helper
+        while count != 0:
+            count = count - 1
+            storage = number % 10
+            if storage > maxNum:
+                maxNum = storage
+            number = number / 10
+        print(maxNum)
+        """;
         FopProject test = new FopProject();
         test.eval(largestNumber);
-//
-        FopProject k = new Interpretor();
-        String tab = """
-             number = 5
-             i=0
-             while i<11:
-                 print(number * i)
-                 i=i+1
-             """;
-        k.eval(tab);
+
+//Palindrome checker
+        String palindromeCheck = """
+        n = 1221 
+        original = n
+        reversed_number = 0
+            
+        while n > 0:
+            digit = n % 10 
+            reversed_number = reversed_number * 10 + digit  
+            n = n / 10  
+            
+        if original == reversed_number:
+            isPalindrome = true
+        else:
+            isPalindrome = false
+            
+        print(isPalindrome)                                                
+        """;
+        FopProject pal = new FopProject();
+        pal.eval(palindromeCheck);
 
 //Prime number checker
         String primeCheckCode = """
