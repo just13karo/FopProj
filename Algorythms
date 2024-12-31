@@ -109,3 +109,38 @@ print(maxNum)
         FopProject test = new FopProject();
         test.eval(largestNumber);
 //
+
+        Interpretor interpretor = new Interpretor();
+        String tab = """
+             number = 5
+             i=0
+             while i<11:
+                 print(number * i)
+                 i=i+1
+             """;
+        interpretor.eval(tab);
+
+        Interpretor interpretor2 = new Interpretor();
+        String fib = """
+                n = 10
+                a = 0
+                b = 1
+                count = 3
+                
+                if n==1:
+                print(0)
+                
+                if n==2:
+                print(1)
+                
+                while count <= n:
+                    next_fib = a + b
+                    a = b
+                    b = next_fib
+                    count = count + 1
+                
+                print(b)
+                """;
+        interpretor2.eval(fib);
+
+
