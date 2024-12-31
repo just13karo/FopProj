@@ -110,7 +110,7 @@ print(maxNum)
         test.eval(largestNumber);
 //
 
-        Interpretor interpretor = new Interpretor();
+        FopProject k = new Interpretor();
         String tab = """
              number = 5
              i=0
@@ -118,9 +118,9 @@ print(maxNum)
                  print(number * i)
                  i=i+1
              """;
-        interpretor.eval(tab);
+        k.eval(tab);
 
-        Interpretor interpretor2 = new Interpretor();
+        FopProject l = new Interpretor();
         String fib = """
                 n = 10
                 a = 0
@@ -141,6 +141,6 @@ print(maxNum)
                 
                 print(b)
                 """;
-        interpretor2.eval(fib);
+        l.eval(fib);
 
 
